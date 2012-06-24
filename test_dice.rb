@@ -11,7 +11,8 @@ class TC_Dice < Test::Unit::TestCase
     assert_block do
       success = true
       100.times do
-        if Dice.new.roll < Dice::MINIMUM_VALUE
+        result = Dice.new.roll
+        if result < Dice::MINIMUM_VALUE || result > Dice::DEFAUL_NUMBER_OF_SIDE
           success = false
           break
         end
@@ -19,33 +20,14 @@ class TC_Dice < Test::Unit::TestCase
 
       success
     end
-
-    assert_block do
-      success = true
-      100.times do
-        if Dice.new.roll > Dice::DEFAUL_NUMBER_OF_SIDE
-          success = false
-          break
-        end
-      end
-    end
   end
 
   def test_roll_some_dice_of_six_sided
     assert_block do
       success = true
       100.times do
-        if Dice.new.roll(@number_of_roll) < @minimum_total_value
-          success = false
-          break
-        end
-      end
-    end
-
-    assert_block do
-      success = true
-      100.times do
-        if Dice.new.roll(@number_of_roll) > @number_of_roll * Dice::DEFAUL_NUMBER_OF_SIDE
+        result = Dice.new.roll(@number_of_roll) 
+        if result < @minimum_total_value || result > @number_of_roll * Dice::DEFAUL_NUMBER_OF_SIDE
           success = false
           break
         end
@@ -59,17 +41,8 @@ class TC_Dice < Test::Unit::TestCase
     assert_block do
       success = true
       100.times do
-        if Dice.new(number_of_side).roll(@number_of_roll) < @minimum_total_value
-          success = false
-          break
-        end
-      end
-    end
-
-    assert_block do
-      success = true
-      100.times do
-        if Dice.new(number_of_side).roll(@number_of_roll) > @number_of_roll * number_of_side
+        result = Dice.new(number_of_side).roll(@number_of_roll)
+        if result < @minimum_total_value || result > @number_of_roll * number_of_side 
           success = false
           break
         end
