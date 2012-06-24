@@ -9,8 +9,10 @@ class TC_Dice < Test::Unit::TestCase
   def test_roll
     dice = Dice.new(6)
     set  = Set.new(1..6)
-    assert_block 100.times do
-      set.member?(dice.roll)
+    assert_block do
+      100.times do
+        set.member?(dice.roll)
+      end
     end
   end
 end
