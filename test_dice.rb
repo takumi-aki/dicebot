@@ -9,27 +9,72 @@ class TC_Dice < Test::Unit::TestCase
   end
 
   def test_roll_one_dice_of_six_side
-    100.times do
-      result = Dice.new.roll
-      assert(result >= Dice::MINIMUM_VALUE)
-      assert(result <= Dice::DEFAUL_NUMBER_OF_SIDE)
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new.roll < Dice::MINIMUM_VALUE
+          success = false
+          break
+        end
+      end
+
+      success
+    end
+
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new.roll > Dice::DEFAUL_NUMBER_OF_SIDE
+          success = false
+          break
+        end
+      end
     end
   end
 
   def test_roll_some_dice_of_six_sided
-    100.times do
-      result = Dice.new.roll(@number_of_roll)
-      assert(result >= @minimum_total_value)
-      assert(result <= Dice::DEFAUL_NUMBER_OF_SIDE * @number_of_roll)
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new.roll(@number_of_roll) < @minimum_total_value
+          success = false
+          break
+        end
+      end
+    end
+
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new.roll(@number_of_roll) > @number_of_roll * Dice::DEFAUL_NUMBER_OF_SIDE
+          success = false
+          break
+        end
+      end
     end
   end
 
   def test_roll_some_dice_of_some_side
-    100.times do
-      number_of_side = rand(10) + 1
-      result = Dice.new(number_of_side).roll(@number_of_roll) 
-      assert(result >= @minimum_total_value)
-      assert(result <= number_of_side * @number_of_roll)
+    number_of_side = rand(10) + 1
+
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new(number_of_side).roll(@number_of_roll) < @minimum_total_value
+          success = false
+          break
+        end
+      end
+    end
+
+    assert_block do
+      success = true
+      100.times do
+        if Dice.new(number_of_side).roll(@number_of_roll) > @number_of_roll * number_of_side
+          success = false
+          break
+        end
+      end
     end
   end
 end
