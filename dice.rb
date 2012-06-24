@@ -8,13 +8,8 @@ class Dice
   end
 
   def roll(number_of_roll=1)
-    result_numbers = []
-    number_of_roll.times {result_numbers << rand(number_of_side) + 1}
-
     result_sum = 0
-    for result in result_numbers
-      result_sum = result_sum + result
-    end
+    number_of_roll.times {result_sum = result_sum + rand(number_of_side) + 1}
 
     result_sum
   end
