@@ -1,5 +1,4 @@
 require 'test/unit'
-require 'set'
 require_relative 'dice'
 
 class TC_Dice < Test::Unit::TestCase
